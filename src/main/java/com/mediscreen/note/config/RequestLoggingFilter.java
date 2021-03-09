@@ -1,4 +1,4 @@
-package com.mediscreen.patient.config;
+package com.mediscreen.note.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
