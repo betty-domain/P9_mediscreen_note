@@ -1,6 +1,5 @@
 package com.mediscreen.note.service;
 
-import com.mediscreen.note.exceptions.NoteException;
 import com.mediscreen.note.model.Note;
 import com.mediscreen.note.repository.NoteRepository;
 import org.apache.logging.log4j.LogManager;
@@ -16,7 +15,7 @@ public class NoteService {
     @Autowired
     private NoteRepository noteRepository;
 
-    public Note addNote(Note note) throws NoteException {
+    public Note addNote(Note note){
         logger.debug("Call to noteService.addNote");
         return noteRepository.save(note);
     }
