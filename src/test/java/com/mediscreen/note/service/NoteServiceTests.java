@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -28,6 +30,18 @@ public class NoteServiceTests {
         when(noteRepositoryMock.save(note)).thenReturn(note);
 
         assertThat(noteService.addNote(note)).isNotNull();
+    }
+
+    @Test
+    void listNote_ok()
+    {
+        Integer patientId = 1;
+        List<Note> noteList = new ArrayList<>();
+        noteList.add(new Note(patientId,"maNote",LocalDate.now()));
+        noteList.add(new Note(patientId,"Ma 2ème note", LocalDate.now().minusDays(1)));
+        when(noteRepositoryMock.findByPatientId(patientId)).thenReturn(noteList);
+
+        assertThat(noteService.getNotesForPatient(patientId).size()).isEqualTo(2);
     }
 
 
