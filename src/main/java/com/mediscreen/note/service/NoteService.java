@@ -7,6 +7,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NoteService {
 
@@ -19,5 +21,12 @@ public class NoteService {
         logger.debug("Call to noteService.addNote");
         return noteRepository.save(note);
     }
+
+    public List<Note> getNotesForPatient(Integer patientId)
+    {
+        logger.debug("Call to noteService.getNotesForPatient");
+        return noteRepository.findByPatientId(patientId);
+    }
+
 
 }
