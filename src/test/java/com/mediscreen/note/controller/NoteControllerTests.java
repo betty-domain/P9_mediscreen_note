@@ -36,7 +36,8 @@ public class NoteControllerTests {
         ObjectMapper objectMapper = new ObjectMapper();
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/patHistory/add").
-                contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(note));
+                contentType(MediaType.APPLICATION_JSON).param("patientId", note.getPatientId().toString())
+                .param("note",note.getNote());
 
         mockMvc.perform(builder).
                 andExpect(status().isOk());
