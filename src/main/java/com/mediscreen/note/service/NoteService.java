@@ -25,7 +25,7 @@ public class NoteService {
     public List<Note> getNotesForPatient(Integer patientId)
     {
         logger.debug("Call to noteService.getNotesForPatient");
-        return noteRepository.findByPatientId(patientId);
+        return noteRepository.findByPatientIdOrderByCreatedDateAsc(patientId);
     }
 
 
