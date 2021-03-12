@@ -39,7 +39,7 @@ public class NoteServiceTests {
         List<Note> noteList = new ArrayList<>();
         noteList.add(new Note(patientId,"maNote",LocalDate.now()));
         noteList.add(new Note(patientId,"Ma 2ème note", LocalDate.now().minusDays(1)));
-        when(noteRepositoryMock.findByPatientId(patientId)).thenReturn(noteList);
+        when(noteRepositoryMock.findByPatientIdOrderByCreatedDateAsc(patientId)).thenReturn(noteList);
 
         assertThat(noteService.getNotesForPatient(patientId).size()).isEqualTo(2);
     }
