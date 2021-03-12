@@ -1,5 +1,6 @@
 package com.mediscreen.note.controller;
 
+import com.mediscreen.note.exceptions.NoteNotFoundException;
 import com.mediscreen.note.model.Note;
 import com.mediscreen.note.service.NoteService;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -58,5 +61,66 @@ public class NoteControllerTests {
         mockMvc.perform(builder).
                 andExpect(status().isOk()).
                 andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    void updateNote_StatusOk() throws Exception
+    {
+        Note note = new Note( "noteId", 1, "ma note mise à jour");
+
+        when(noteServiceMock.updateNote(any())).thenReturn(note);
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put("/patHistory/update").
+                contentType(MediaType.APPLICATION_JSON).param("noteId",note.getId())
+                .param("patientId",note.getPatientId().toString())
+                .param("note",note.getNote());
+
+        mockMvc.perform(builder).
+                andExpect(status().isOk());
+    }
+
+    @Test
+    void updateNote_NotFound() throws Exception
+    {
+        Note note = new Note( "noteId", 1, "ma note mise à jour");
+
+        given(noteServiceMock.updateNote(any())).willThrow(new NoteNotFoundException("NotFound"));
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put("/patHistory/update").
+                contentType(MediaType.APPLICATION_JSON).param("noteId",note.getId())
+                .param("patientId",note.getPatientId().toString())
+                .param("note",note.getNote());
+
+        mockMvc.perform(builder).
+                andExpect(status().isNotFound());
+    }
+    @Test
+    void getNote_StatusOk() throws Exception
+    {
+        Note note = new Note( "noteId", 1, "ma note mise à jour");
+
+        when(noteServiceMock.getNoteById(note.getId())).thenReturn(note);
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/patHistory/get").
+                contentType(MediaType.APPLICATION_JSON)
+                .param("noteId",note.getId().toString());
+
+        mockMvc.perform(builder).
+                andExpect(status().isOk());
+    }
+
+    @Test
+    void getNote_NotFound() throws Exception
+    {
+        Note note = new Note( "noteId", 1, "ma note mise à jour");
+
+        given(noteServiceMock.getNoteById(note.getId())).willThrow(new NoteNotFoundException("NotFound Message"));
+
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/patHistory/get").
+                contentType(MediaType.APPLICATION_JSON)
+                .param("noteId",note.getId().toString());
+
+        mockMvc.perform(builder).
+                andExpect(status().isNotFound());
     }
 }
