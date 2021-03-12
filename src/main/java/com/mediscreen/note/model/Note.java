@@ -32,6 +32,17 @@ public class Note {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate createdDate;
 
+    public Note()
+    {
+
+    }
+    public Note(String noteId, Integer patientId, String note)
+    {
+        this.id = noteId;
+        this.patientId = patientId;
+        this.note = note;
+    }
+
     public Note(Integer patientId, String note, LocalDate createdDate)
     {
         this.patientId = patientId;
