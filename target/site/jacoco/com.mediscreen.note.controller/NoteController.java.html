@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoteController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Note</a> &gt; <a href="index.source.html" class="el_package">com.mediscreen.note.controller</a> &gt; <span class="el_source">NoteController.java</span></div><h1>NoteController.java</h1><pre class="source lang-java linenums">package com.mediscreen.note.controller;
+
+import com.mediscreen.note.exceptions.NoteNotFoundException;
+import com.mediscreen.note.model.Note;
+import com.mediscreen.note.service.NoteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController
+<span class="fc" id="L17">public class NoteController {</span>
+
+    @Autowired
+    private NoteService noteService;
+
+    @PostMapping(&quot;/patHistory/add&quot;)
+    public Note addNote(@RequestParam Integer patientId, @RequestParam String note) {
+<span class="fc" id="L24">        Note noteToCreate = new Note(patientId, note, LocalDate.now());</span>
+<span class="fc" id="L25">        return noteService.addNote(noteToCreate);</span>
+    }
+
+    @GetMapping(&quot;/patHistory&quot;)
+    public List&lt;Note&gt; getNotesForPatient(@RequestParam Integer patientId) {
+<span class="fc" id="L30">        return noteService.getNotesForPatient(patientId);</span>
+    }
+
+    @GetMapping(&quot;/patHistory/get&quot;)
+    public Note getNote(@RequestParam String noteId) throws NoteNotFoundException {
+<span class="fc" id="L35">        return noteService.getNoteById(noteId);</span>
+    }
+
+    @PutMapping(&quot;/patHistory/update&quot;)
+    public Note updateNote(@RequestParam String noteId, @RequestParam Integer patientId, @RequestParam String note) throws NoteNotFoundException {
+<span class="fc" id="L40">        Note noteToUpdate = new Note(noteId,patientId,note);</span>
+<span class="fc" id="L41">        return noteService.updateNote(noteToUpdate);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

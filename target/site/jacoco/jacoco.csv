@@ -1,0 +1,7 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Note,com.mediscreen.note.model,Note,15,40,0,0,2,15,4,7,4,7
+Note,com.mediscreen.note.controller,NoteController,0,37,0,0,0,7,0,5,0,5
+Note,com.mediscreen.note.service,NoteService,0,72,0,2,0,15,0,8,0,7
+Note,com.mediscreen.note,NoteApplication,5,3,0,0,2,1,1,1,1,1
+Note,com.mediscreen.note.exceptions,NoteNotFoundException,0,6,0,0,0,3,0,2,0,2
+Note,com.mediscreen.note.config,RequestLoggingFilter,0,24,0,0,0,8,0,2,0,2

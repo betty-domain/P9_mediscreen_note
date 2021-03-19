@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mediscreen</groupId>
-    <artifactId>note</artifactId>
+    <artifactId>Note</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>note</name>
+    <name>Note</name>
     <description>Note microservice for mediscreen app</description>
     <properties>
         <java.version>1.8</java.version>

@@ -1,0 +1,4 @@
+com\mediscreen\note\integration\NoteServiceIT.class
+com\mediscreen\note\NoteApplicationTests.class
+com\mediscreen\note\service\NoteServiceTests.class
+com\mediscreen\note\controller\NoteControllerTests.class
